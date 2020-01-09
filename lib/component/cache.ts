@@ -10,12 +10,18 @@ export class Cache {
    * @internal
    */
   private cache: Map<THash, ICache> = new Map();
+  /**
+   * @internal
+   */
+  private options: ICacheOptions;
+  /**
+   * @internal
+   */
+  private interval: NodeJS.Timeout;
 
-  constructor(
-    private options: ICacheOptions,
-  ) {
-    this.options = { ttl: 60, ...this.options };
-    setInterval(() => this.checkTtlClbck(), this.options.ttl);
+  constructor(options?: ICacheOptions) {
+    this.options = { ttl: 60, ...options || {} };
+    this.on();
   }
 
   /**
@@ -61,5 +67,20 @@ export class Cache {
       return cache.data;
     }
     return null;
+  }
+
+  public off() {
+    clearInterval(this.interval);
+  }
+
+  public on() {
+    this.interval = setInterval(() => this.checkTtlClbck(), this.options.ttl * 1000);
+  }
+
+  /**
+   * Returns count of all live cahces
+   */
+  public get count() {
+    return this.cache.size;
   }
 }
