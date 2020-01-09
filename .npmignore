@@ -1,0 +1,7 @@
+/node_modules/
+/lib/
+/tests/
+tsconfig.json
+tslint.json
+webpack*.js
+.gitignore
