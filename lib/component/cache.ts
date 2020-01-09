@@ -69,10 +69,16 @@ export class Cache {
     return null;
   }
 
+  /**
+   * Stop check cache's live every second
+   */
   public off() {
     clearInterval(this.interval);
   }
 
+  /**
+   * Begin check cache's live every second
+   */
   public on() {
     this.interval = setInterval(() => this.checkTtlClbck(), this.options.ttl * 1000);
   }
