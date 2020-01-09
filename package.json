@@ -1,6 +1,6 @@
 {
   "name": "cache-requestjs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Cache requests",
   "main": "dist/main.bundle.js",
   "typings": "dist/typings/public_api.d.ts",
@@ -30,9 +30,9 @@
     "tslint-config-airbnb": "^5.11.2",
     "typescript": "^3.7.4",
     "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "asmcrypto.js": "^2.3.2"
   },
   "dependencies": {
-    "asmcrypto.js": "^2.3.2"
   }
 }
