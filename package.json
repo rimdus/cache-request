@@ -1,6 +1,6 @@
 {
   "name": "cache-request",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Cache requests",
   "main": "dist/main.bundle.js",
   "typings": "dist/typings/public_api.d.ts",
