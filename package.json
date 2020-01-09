@@ -2,10 +2,11 @@
   "name": "cache-request",
   "version": "0.0.1",
   "description": "Cache requests",
-  "main": "dist/index.js",
-  "typings": "dist/types/index.d.ts",
+  "main": "dist/main.bundle.js",
+  "typings": "dist/typings/public_api.d.ts",
   "scripts": {
-    "build": "tsc"
+    "build": "gulp",
+    "build2": "webpack"
   },
   "keywords": [
     "cache",
@@ -15,13 +16,16 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^12.12.24",
+    "ts-loader": "^6.2.1",
+    "ts-node": "^8.5.4",
     "tslint": "^5.20.1",
     "tslint-config-airbnb": "^5.11.2",
     "typescript": "^3.7.4",
-    "ts-node": "^8.5.4"
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "clean-webpack-plugin": "^3.0.0"
   },
   "dependencies": {
-    "asmcrypto.js": "^2.3.2",
-    "murmurhash3js": "^3.0.1"
+    "asmcrypto.js": "^2.3.2"
   }
 }

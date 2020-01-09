@@ -1,17 +1,18 @@
 {
   "compilerOptions": {
-    "module": "commonJS",
-    "moduleResolution": "node",
+    "module": "commonjs",
     "pretty": true,
     "sourceMap": true,
-    "target": "es6",
+    "target": "esnext",
     "lib": ["esnext", "dom"],
     "strict": false,
-    "outDir": "./dist",
+    "outDir": "./dist/lib",
     "baseUrl": ".",
     "declaration": true,
-    "declarationDir": "dist/types",
-    "resolveJsonModule": true
+    "declarationDir": "./dist/typings",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "stripInternal": true
   },
   "include": [
     "lib/**/*.ts"

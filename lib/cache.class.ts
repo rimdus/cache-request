@@ -6,14 +6,20 @@ import { THash } from './type/hash.type';
  * Cache class save any data by unique objects (requests) to internal storage and free when ttl expired
  */
 export class CacheClass {
+  /**
+   * @internal
+   */
   private cache: Map<THash, ICache> = new Map();
 
-  public constructor(private options: ICacheOptions) {
+  constructor(
+    private options: ICacheOptions,
+  ) {
     this.options = { ttl: 60, ...this.options };
     setInterval(() => this.checkTtlClbck(), this.options.ttl);
   }
 
   /**
+   * @internal
    * Checks and invalidate expires caches
    */
   private checkTtlClbck() {

@@ -1,6 +1,6 @@
-import { Sha1, Sha256, Sha512 } from 'asmcrypto.js'
+import { Sha1, Sha256, Sha512 } from 'asmcrypto.js';
 import { HashMethod, THash } from './type/hash.type';
-const murmurHash3 = require("murmurhash3js");
+import { murmurHash3 } from './hash-alg/murmur3';
 const sha1 = new Sha1();
 const sha256 = new Sha256();
 const sha512 = new Sha512();
@@ -21,6 +21,7 @@ export class Hash {
   }
 
   /**
+   * @internal
    * Generate hash sha*
    * @param str String
    * @param method Hash method sha1, sha256 or sha512
@@ -46,7 +47,11 @@ export class Hash {
     return Buffer.from(result).toString('hex');
   }
 
+  /**
+   * @internal
+   * @param str
+   */
   private static genMurmur(str): THash {
-    return murmurHash3.x86.hash128(str);
+    return murmurHash3(str);
   }
 }
