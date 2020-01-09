@@ -11,8 +11,7 @@
     "declaration": true,
     "declarationDir": "./dist/typings",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "stripInternal": true
+    "resolveJsonModule": true
   },
   "include": [
     "lib/**/*.ts"

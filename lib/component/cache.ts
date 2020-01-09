@@ -1,11 +1,11 @@
-import { ICache, ICacheOptions } from './interface/cache.interface';
+import { ICache, ICacheOptions } from '../interface/cache.interface';
 import { Hash } from './hash';
-import { THash } from './type/hash.type';
+import { THash } from '../type/hash.type';
 
 /**
  * Cache class save any data by unique objects (requests) to internal storage and free when ttl expired
  */
-export class CacheClass {
+export class Cache {
   /**
    * @internal
    */

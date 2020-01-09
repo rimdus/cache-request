@@ -1,5 +1,5 @@
-import { Hash } from '../hash';
-import { performance } from "perf_hooks";
+import { Hash } from '../component/hash';
+import { performance } from 'perf_hooks';
 
 const obj = {
   // action: 'select',
@@ -35,4 +35,3 @@ setTimeout(() => {
 //  console.log('Total time', (end - start));
 
 }, 500);
-

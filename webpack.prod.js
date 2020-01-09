@@ -1,9 +1,7 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-
 const path = require('path');
 
 module.exports = {
-  // mode: 'development',
   mode: 'production',
   entry: './lib/public_api.ts',
   output: {

@@ -1,6 +1,6 @@
 import { Sha1, Sha256, Sha512 } from 'asmcrypto.js';
-import { HashMethod, THash } from './type/hash.type';
-import { murmurHash3 } from './hash-alg/murmur3';
+import { HashMethod, THash } from '../type/hash.type';
+import { murmurHash3 } from '../hash-alg/murmur3';
 const sha1 = new Sha1();
 const sha256 = new Sha256();
 const sha512 = new Sha512();
