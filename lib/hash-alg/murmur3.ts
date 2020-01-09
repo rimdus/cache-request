@@ -1,9 +1,4 @@
 export const murmurHash3 = (str: string, seedVal?: number) => {
-  //
-  // Given a string and an optional seed as an int, returns a 128 bit
-  // hash using the x64 flavor of MurmurHash3, as an unsigned hex.
-  //
-
   const key = str || '';
   const seed = seedVal || 0;
 
@@ -167,11 +162,6 @@ export const murmurHash3 = (str: string, seedVal?: number) => {
   }
 
   function x64Multiply($m, $n) {
-    //
-    // Given two 64bit ints (as an array of two 32bit ints) returns the two
-    // multiplied together as a 64bit int (as an array of two 32bit ints).
-    //
-
     let m = $m;
     let n = $n;
     m = [m[0] >>> 16, m[0] & 0xffff, m[1] >>> 16, m[1] & 0xffff];
@@ -209,12 +199,6 @@ export const murmurHash3 = (str: string, seedVal?: number) => {
   }
 
   function x64Rotl($m, $n) {
-    //
-    // Given a 64bit int (as an array of two 32bit ints) and an int
-    // representing a number of bit positions, returns the 64bit int (as an
-    // array of two 32bit ints) rotated left by that number of positions.
-    //
-
     let n = $n;
     const m = $m;
     n %= 64;
@@ -230,12 +214,6 @@ export const murmurHash3 = (str: string, seedVal?: number) => {
   }
 
   function x64LeftShift($m, $n) {
-    //
-    // Given a 64bit int (as an array of two 32bit ints) and an int
-    // representing a number of bit positions, returns the 64bit int (as an
-    // array of two 32bit ints) shifted left by that number of positions.
-    //
-
     let n = $n;
     const m = $m;
     n %= 64;
@@ -250,21 +228,10 @@ export const murmurHash3 = (str: string, seedVal?: number) => {
   }
 
   function x64Xor(m, n) {
-    //
-    // Given two 64bit ints (as an array of two 32bit ints) returns the two
-    // xored together as a 64bit int (as an array of two 32bit ints).
-    //
-
     return [m[0] ^ n[0], m[1] ^ n[1]];
   }
 
   function x64Fmix($h) {
-    //
-    // Given a block, returns murmurHash3's final x64 mix of that block.
-    // (`[0, h[0] >>> 1]` is a 33 bit unsigned right shift. This is the
-    // only place where we need to right shift 64bit ints.)
-    //
-
     let h = $h;
     h = x64Xor(h, [0, h[0] >>> 1]);
     h = x64Multiply(h, [0xff51afd7, 0xed558ccd]);
