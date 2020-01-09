@@ -2,7 +2,7 @@
 
 ## Example
 ```
-import { Cache } from 'cache-request';
+import { Cache } from 'cache-requestjs';
 
 const cache = new Cache({ ttl: 30 });
 

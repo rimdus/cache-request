@@ -1,5 +1,5 @@
 {
-  "name": "cache-request",
+  "name": "cache-requestjs",
   "version": "1.0.0",
   "description": "Cache requests",
   "main": "dist/main.bundle.js",

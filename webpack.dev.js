@@ -9,7 +9,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     libraryTarget: 'umd',
     globalObject: 'this',
-    library: 'cache-request',
+    library: 'cache-requestjs',
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js']
