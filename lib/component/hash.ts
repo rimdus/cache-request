@@ -17,6 +17,12 @@ export class Hash {
   public static generate(str: string, method: HashMethod = HashMethod.murmur): THash {
     switch (method) {
       case HashMethod.murmur: return Hash.genMurmur(str);
+      case HashMethod.sha1:
+      case HashMethod.sha256:
+      case HashMethod.sha512:
+        return Hash.genSha(str, method);
+      default:
+        return null;
     }
   }
 
