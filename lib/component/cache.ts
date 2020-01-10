@@ -86,7 +86,7 @@ export class Cache {
   /**
    * Returns count of all live cahces
    */
-  public get count() {
+  public count(): number {
     return this.cache.size;
   }
 }
