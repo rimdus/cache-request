@@ -31,7 +31,7 @@ export class Cache {
   private checkTtlClbck() {
     const now = Date.now();
     this.cache.forEach((cache, hash, map) => {
-      if (cache.expire >= now) {
+      if (cache.expire < now) {
         map.delete(hash);
       }
     });
@@ -46,7 +46,7 @@ export class Cache {
   public add(unique: object, data: any, ttl: number = 0): THash {
     const uniqueStr = JSON.stringify(unique);
     const hash = Hash.generate(uniqueStr);
-    const expire = Date.now() + (ttl || this.options.ttl);
+    const expire = Date.now() + (ttl || this.options.ttl) * 1000;
     const cache = this.cache.get(hash);
     if (!cache || (cache && cache.original === uniqueStr)) {
       this.cache.set(hash, { data, expire, original: uniqueStr });
