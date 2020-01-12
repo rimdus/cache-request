@@ -1,3 +1,8 @@
+export enum AddStrategy {
+  UpdateExists,
+  UpdateNotExists,
+}
+
 /**
  * Cache options
  */
@@ -6,6 +11,10 @@ export interface ICacheOptions {
    * Global cache ttl in seconds
    */
   ttl?: number;
+  /**
+   * Add cache global strategy
+   */
+  strategy?: AddStrategy;
 }
 
 /**
@@ -19,7 +28,7 @@ export interface ICache {
   /**
    * Expire date in ms
    */
-  expire: number
+  expire: number;
   /**
    * original unique string
    */

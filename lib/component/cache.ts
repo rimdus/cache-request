@@ -1,4 +1,4 @@
-import { ICache, ICacheOptions } from '../interface/cache.interface';
+import { AddStrategy, ICache, ICacheOptions } from '../interface/cache.interface';
 import { Hash } from './hash';
 import { THash } from '../type/hash.type';
 
@@ -20,7 +20,11 @@ export class Cache {
   private interval: NodeJS.Timeout;
 
   constructor(options?: ICacheOptions) {
-    this.options = { ttl: 60, ...options || {} };
+    this.options = {
+      ttl: 60,
+      strategy: AddStrategy.UpdateNotExists,
+      ...options || {},
+    };
     this.on();
   }
 
