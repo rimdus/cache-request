@@ -77,6 +77,38 @@ export class Cache {
   }
 
   /**
+   * Get ttl in ms for key
+   * @param unique
+   */
+  public getTtl(unique: string): number;
+  public getTtl(unique: object): number;
+  public getTtl(): number {
+    const uniqueStr = this.convUniqueStr(arguments[0]);
+    const hash = Hash.generate(uniqueStr);
+    const cache = this.cache.get(hash);
+    if (cache) {
+      return cache.expire - Date.now();
+    }
+    return null;
+  }
+
+  /**
+   * Converts unique to the string key
+   * @param unique
+   */
+  private convUniqueStr(unique: any): string {
+    let uniqueStr: string;
+    if (typeof unique === 'string') {
+      uniqueStr = unique;
+    } else if (typeof unique === 'object') {
+      uniqueStr = JSON.stringify(unique);
+    } else {
+      uniqueStr = null;
+    }
+    return uniqueStr;
+  }
+
+  /**
    * Stop check cache's live every second
    */
   public off() {
