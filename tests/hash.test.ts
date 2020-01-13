@@ -29,4 +29,12 @@ describe('cache', () => {
     cache.off();
     return rep === 0;
   });
+
+  it('check mutate after clone', () => {
+    const obj = { a: { b: { c: { text: 123 } } } };
+    cache.add({ action: 'clone' }, obj);
+    obj.a.b.c.text = 456;
+    const res = cache.get({ action: 'clone' });
+    return res.a.b.c.text !== obj.a.b.c.text;
+  });
 });

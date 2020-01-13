@@ -58,7 +58,7 @@ const cache = new Cache(options);
 
 #### ttl
 
-Time to live in seconds (60 sec default)
+Time to live in seconds (60 sec default).
 
 #### strategy
 
@@ -66,3 +66,14 @@ Add cache strategy
 - UpdateExists - Always update cache and set new expires time
 - AddNotExists - Only add not existing cache, that mean time will expare and you mast get new data from the server,
 then put it to the cache
+
+#### keyConvertFn
+
+Custom convert function that makes keys.
+```
+const cache = new Cache({ keyConvertFn: (unique) => unique.uuid }})
+```
+
+#### isClone
+
+The flag is responsible to clone the object or not. Default true.

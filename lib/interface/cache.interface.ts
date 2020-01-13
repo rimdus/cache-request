@@ -28,7 +28,11 @@ export interface ICacheOptions {
   /**
    * Custom convert function that makes keys
    */
-  keyConvert?: (unique: any) => string;
+  keyConvertFn?: (unique: any) => string;
+  /**
+   * Is need to clone data
+   */
+  isClone?: boolean;
 }
 
 /**

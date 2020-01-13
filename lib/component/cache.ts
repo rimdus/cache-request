@@ -1,6 +1,7 @@
 import { AddStrategy, ICache, ICacheOptions } from '../interface/cache.interface';
 import { Hash } from './hash';
 import { THash } from '../type/hash.type';
+import { clone } from '../clone/clone';
 
 /**
  * Cache class save any data by unique objects (requests) to internal storage and free when ttl expired
@@ -24,6 +25,7 @@ export class Cache {
     this.options = {
       ttl: 60,
       strategy: AddStrategy.AddNotExists,
+      isClone: true,
       ...options || {},
     };
     this.on();
@@ -48,8 +50,8 @@ export class Cache {
    * @param data Any data
    * @param ttl Time to live in seconds, 0 - used global ttl
    */
-  public add(unique: string, data: any, ttl: number): THash;
-  public add(unique: object, data: any, ttl: number): THash;
+  public add(unique: string, data: any, ttl?: number): THash;
+  public add(unique: object, data: any, ttl?: number): THash;
   public add(): THash {
     const uniqueStr = this.convUniqueToStr(arguments[0]);
     const hash = Hash.generate(uniqueStr);
@@ -58,7 +60,11 @@ export class Cache {
     const ttl: number = arguments[2] || 0;
     if (!cache || (cache && this.options.strategy === AddStrategy.UpdateExists && cache.original === uniqueStr)) {
       const expire: number = Date.now() + (ttl || this.options.ttl) * 1000;
-      this.cache.set(hash, { data, expire, original: uniqueStr });
+      let data2 = data;
+      if (this.options.isClone) {
+        data2 = clone(data);
+      }
+      this.cache.set(hash, { expire, data: data2, original: uniqueStr });
       return hash;
     }
     return null;
@@ -102,8 +108,8 @@ export class Cache {
    */
   private convUniqueToStr(unique: any): string {
     let uniqueStr: string;
-    if (typeof this.options.keyConvert === 'function') {
-      uniqueStr = this.options.keyConvert(unique);
+    if (typeof this.options.keyConvertFn === 'function') {
+      uniqueStr = this.options.keyConvertFn(unique);
     } else if (typeof unique === 'string') {
       uniqueStr = unique;
     } else if (typeof unique === 'object') {
