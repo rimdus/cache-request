@@ -1,6 +1,16 @@
+/**
+ * Add cache strategy
+ */
 export enum AddStrategy {
+  /**
+   * Always update cache and set new expires time
+   */
   UpdateExists,
-  UpdateNotExists,
+  /**
+   * Only add not existing cache, that mean time will expare and you mast get new data from the server,
+   * then put it to the cache
+   */
+  AddNotExists,
 }
 
 /**

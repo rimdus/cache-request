@@ -19,10 +19,11 @@ export class Cache {
    */
   private interval: NodeJS.Timeout;
 
+  /** @ignore */
   constructor(options?: ICacheOptions) {
     this.options = {
       ttl: 60,
-      strategy: AddStrategy.UpdateNotExists,
+      strategy: AddStrategy.AddNotExists,
       ...options || {},
     };
     this.on();
@@ -50,12 +51,14 @@ export class Cache {
   public add(unique: object, data: any, ttl: number = 0): THash {
     const uniqueStr = JSON.stringify(unique);
     const hash = Hash.generate(uniqueStr);
-    const expire = Date.now() + (ttl || this.options.ttl) * 1000;
     const cache = this.cache.get(hash);
-    if (!cache || (cache && cache.original === uniqueStr)) {
+
+    if (!cache || (cache && this.options.strategy === AddStrategy.UpdateExists && cache.original === uniqueStr)) {
+      const expire = Date.now() + (ttl || this.options.ttl) * 1000;
       this.cache.set(hash, { data, expire, original: uniqueStr });
       return hash;
     }
+
     return null;
   }
 
