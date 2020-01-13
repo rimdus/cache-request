@@ -48,17 +48,19 @@ export class Cache {
    * @param data Any data
    * @param ttl Time to live in seconds, 0 - used global ttl
    */
-  public add(unique: object, data: any, ttl: number = 0): THash {
-    const uniqueStr = JSON.stringify(unique);
+  public add(unique: string, data: any, ttl: number): THash;
+  public add(unique: object, data: any, ttl: number): THash;
+  public add(): THash {
+    const uniqueStr = this.convUniqueToStr(arguments[0]);
     const hash = Hash.generate(uniqueStr);
     const cache = this.cache.get(hash);
-
+    const data: any = arguments[1];
+    const ttl: number = arguments[2] || 0;
     if (!cache || (cache && this.options.strategy === AddStrategy.UpdateExists && cache.original === uniqueStr)) {
-      const expire = Date.now() + (ttl || this.options.ttl) * 1000;
+      const expire: number = Date.now() + (ttl || this.options.ttl) * 1000;
       this.cache.set(hash, { data, expire, original: uniqueStr });
       return hash;
     }
-
     return null;
   }
 
@@ -66,8 +68,10 @@ export class Cache {
    * Get cached data
    * @param unique Object to identity cached data
    */
-  public get(unique: object): any {
-    const uniqueStr = JSON.stringify(unique);
+  public get(unique: string): any;
+  public get(unique: object): any;
+  public get(): any {
+    const uniqueStr = this.convUniqueToStr(arguments[0]);
     const hash = Hash.generate(uniqueStr);
     const cache = this.cache.get(hash);
     if (cache && cache.original === uniqueStr) {
@@ -78,12 +82,12 @@ export class Cache {
 
   /**
    * Get ttl in ms for key
-   * @param unique
+   * @param unique Object to identity cached data
    */
   public getTtl(unique: string): number;
   public getTtl(unique: object): number;
   public getTtl(): number {
-    const uniqueStr = this.convUniqueStr(arguments[0]);
+    const uniqueStr = this.convUniqueToStr(arguments[0]);
     const hash = Hash.generate(uniqueStr);
     const cache = this.cache.get(hash);
     if (cache) {
@@ -94,11 +98,13 @@ export class Cache {
 
   /**
    * Converts unique to the string key
-   * @param unique
+   * @param unique Object to identity cached data
    */
-  private convUniqueStr(unique: any): string {
+  private convUniqueToStr(unique: any): string {
     let uniqueStr: string;
-    if (typeof unique === 'string') {
+    if (typeof this.options.keyConvert === 'function') {
+      uniqueStr = this.options.keyConvert(unique);
+    } else if (typeof unique === 'string') {
       uniqueStr = unique;
     } else if (typeof unique === 'object') {
       uniqueStr = JSON.stringify(unique);

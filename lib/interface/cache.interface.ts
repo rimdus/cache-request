@@ -25,6 +25,10 @@ export interface ICacheOptions {
    * Add cache global strategy
    */
   strategy?: AddStrategy;
+  /**
+   * Custom convert function that makes keys
+   */
+  keyConvert?: (unique: any) => string;
 }
 
 /**
